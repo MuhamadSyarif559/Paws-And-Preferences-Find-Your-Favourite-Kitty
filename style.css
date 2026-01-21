@@ -249,6 +249,21 @@ h1 {
   color: var(--muted);
 }
 
+.summary-actions {
+  margin-top: 20px;
+}
+
+.summary .pill.reset {
+  background: #fff;
+  color: var(--ink);
+  border: 2px solid rgba(43, 28, 19, 0.15);
+  box-shadow: 0 10px 20px rgba(36, 22, 14, 0.12);
+}
+
+.summary .pill.reset:hover {
+  transform: translateY(-1px);
+}
+
 .liked-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -265,6 +280,39 @@ h1 {
 
 .hidden {
   display: none;
+}
+
+.swipe-burst-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.swipe-burst {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: clamp(54px, 9vw, 96px);
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  animation: swipe-burst 720ms ease-out forwards;
+  filter: drop-shadow(0 12px 20px rgba(36, 22, 14, 0.25));
+}
+
+@keyframes swipe-burst {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.6) rotate(var(--spin));
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--drift-x)), calc(-50% + var(--drift-y)))
+      scale(1.05) rotate(calc(var(--spin) * 1.4));
+  }
 }
 
 @keyframes flash-like {

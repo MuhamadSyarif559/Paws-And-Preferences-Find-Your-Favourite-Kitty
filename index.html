@@ -16,7 +16,7 @@
     <div class="app">
       <header class="hero">
         <p class="eyebrow">CatSwipe</p>
-        <h1>Find your feline vibe.</h1>
+        <h1>Find Your Favourite Kitty.</h1>
         <p class="subtitle">Swipe right if you like a cat, left if you don't.</p>
       </header>
 
@@ -46,9 +46,13 @@
           <h2>You liked <span id="liked-count">0</span> cats.</h2>
           <p>Here are your favorites:</p>
           <div id="liked-grid" class="liked-grid"></div>
+          <div class="summary-actions">
+            <button id="reset" class="pill reset" type="button">Start over</button>
+          </div>
         </section>
       </main>
     </div>
+    <div id="burst-layer" class="swipe-burst-layer" aria-hidden="true"></div>
 
     <script src="app.js"></script>
   </body>

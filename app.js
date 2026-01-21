@@ -11,6 +11,8 @@ const dislikeButton = document.getElementById("dislike");
 const summary = document.getElementById("summary");
 const likedCount = document.getElementById("liked-count");
 const likedGrid = document.getElementById("liked-grid");
+const resetButton = document.getElementById("reset");
+const burstLayer = document.getElementById("burst-layer");
 const page = document.body;
 
 // App state.
@@ -113,6 +115,7 @@ const swipeCard = (direction) => {
 
   isAnimating = true;
   triggerBackgroundFlash(direction);
+  spawnSwipeEffect(direction, card);
   const moveOut = direction === "right" ? 800 : -800;
   const rotate = direction === "right" ? 18 : -18;
   card.style.transform = `translate(${moveOut}px, -40px) rotate(${rotate}deg)`;
@@ -149,6 +152,45 @@ const triggerBackgroundFlash = (direction) => {
   }, 520);
 };
 
+const spawnSwipeEffect = (direction, card) => {
+  if (!burstLayer) return;
+  const rect = card.getBoundingClientRect();
+  const centerX = rect.left + rect.width / 2;
+  const centerY = rect.top + rect.height / 2;
+  const count = 5;
+  const src =
+    direction === "right"
+      ? "Asset/happy-cat.gif"
+      : "Asset/Cute Cat Crying GIF - Cute Cat Crying Tears - Discover & Share GIFs.gif";
+
+  for (let i = 0; i < count; i += 1) {
+    const img = document.createElement("img");
+    img.className = "swipe-burst";
+    img.src = src;
+    img.alt = "";
+    img.setAttribute("aria-hidden", "true");
+
+    const scatterX = (Math.random() - 0.5) * 80;
+    const scatterY = (Math.random() - 0.5) * 60;
+    const driftBase = direction === "right" ? 140 : -140;
+    const driftX = driftBase + (Math.random() - 0.5) * 70;
+    const driftY = -80 + (Math.random() - 0.5) * 70;
+    const spin = `${(Math.random() * 30 - 15).toFixed(1)}deg`;
+
+    img.style.setProperty("--x", `${centerX + scatterX}px`);
+    img.style.setProperty("--y", `${centerY + scatterY}px`);
+    img.style.setProperty("--drift-x", `${driftX}px`);
+    img.style.setProperty("--drift-y", `${driftY}px`);
+    img.style.setProperty("--spin", spin);
+
+    img.addEventListener("animationend", () => {
+      img.remove();
+    });
+
+    burstLayer.appendChild(img);
+  }
+};
+
 // Reveal the liked summary once the stack is exhausted.
 const showSummary = () => {
   stack.classList.add("hidden");
@@ -170,6 +212,23 @@ const showSummary = () => {
     img.alt = cat.name;
     likedGrid.appendChild(img);
   });
+};
+
+const resetApp = () => {
+  if (flashTimeout) {
+    clearTimeout(flashTimeout);
+    flashTimeout = null;
+  }
+  page.classList.remove("flash-like", "flash-dislike");
+  isAnimating = false;
+  dragState = null;
+  currentIndex = 0;
+  likedCats = [];
+  stack.classList.remove("hidden");
+  summary.classList.add("hidden");
+  likedGrid.innerHTML = "";
+  hint.textContent = "Drag to swipe";
+  initialize();
 };
 
 // Pointer gesture start.
@@ -243,5 +302,6 @@ stack.addEventListener("pointercancel", handlePointerUp);
 
 likeButton.addEventListener("click", () => swipeCard("right"));
 dislikeButton.addEventListener("click", () => swipeCard("left"));
+resetButton.addEventListener("click", resetApp);
 
 initialize();
