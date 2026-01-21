@@ -161,7 +161,7 @@ const spawnSwipeEffect = (direction, card) => {
   const src =
     direction === "right"
       ? "Asset/happy-cat.gif"
-      : "Asset/Cute Cat Crying GIF - Cute Cat Crying Tears - Discover & Share GIFs.gif";
+      : "Asset/cat-dỗi.gif";
 
   for (let i = 0; i < count; i += 1) {
     const img = document.createElement("img");
@@ -170,8 +170,8 @@ const spawnSwipeEffect = (direction, card) => {
     img.alt = "";
     img.setAttribute("aria-hidden", "true");
 
-    const scatterX = (Math.random() - 0.5) * 80;
-    const scatterY = (Math.random() - 0.5) * 60;
+    const scatterX = (Math.random() - 0.5) * 150;
+    const scatterY = (Math.random() - 0.5) * 150;
     const driftBase = direction === "right" ? 140 : -140;
     const driftX = driftBase + (Math.random() - 0.5) * 70;
     const driftY = -80 + (Math.random() - 0.5) * 70;

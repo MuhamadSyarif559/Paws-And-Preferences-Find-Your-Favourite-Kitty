@@ -296,7 +296,7 @@ h1 {
   width: clamp(54px, 9vw, 96px);
   transform: translate(-50%, -50%);
   opacity: 0;
-  animation: swipe-burst 720ms ease-out forwards;
+  animation: swipe-burst 1000ms ease-out forwards;
   filter: drop-shadow(0 12px 20px rgba(36, 22, 14, 0.25));
 }
 
