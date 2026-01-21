@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CatSwipe</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Space+Grotesk:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="hero">
+        <p class="eyebrow">CatSwipe</p>
+        <h1>Find your feline vibe.</h1>
+        <p class="subtitle">Swipe right if you like a cat, left if you don't.</p>
+      </header>
+
+      <main class="stage">
+        <!-- Card stack lives here; JS injects cards into #stack. -->
+        <section class="stack-shell">
+          <div class="status-bar">
+            <span id="progress">0 / 0</span>
+            <span id="hint">Drag to swipe</span>
+          </div>
+          <div id="stack" class="stack" aria-live="polite"></div>
+          <div id="loader" class="loader">Loading cats...</div>
+        </section>
+
+        <!-- Fallback buttons for desktop / accessibility. -->
+        <section class="controls">
+          <button id="dislike" class="pill dislike" type="button" aria-label="Dislike">
+            Dislike
+          </button>
+          <button id="like" class="pill like" type="button" aria-label="Like">
+            Like
+          </button>
+        </section>
+
+        <!-- Summary appears after all cards are swiped. -->
+        <section id="summary" class="summary hidden">
+          <h2>You liked <span id="liked-count">0</span> cats.</h2>
+          <p>Here are your favorites:</p>
+          <div id="liked-grid" class="liked-grid"></div>
+        </section>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
